@@ -1,10 +1,8 @@
-from typing import Any
-
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm.relationships import _RelationshipDeclared
+from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+from .person import PersonDTO
 
 class SourcesDTO(BaseDTO):
     __tablename__: str = "sources"
@@ -20,5 +18,8 @@ class SourcesDTO(BaseDTO):
     # URL or reference to the source
     url: Column[str] = Column(String, nullable=True)
 
-    person: _RelationshipDeclared[Any] = relationship(
-        "PersonDTO", back_populates="sources")
+    person: Mapped["PersonDTO"] = relationship(
+        "PersonDTO",
+        back_populates="sources",
+        uselist=False
+        )

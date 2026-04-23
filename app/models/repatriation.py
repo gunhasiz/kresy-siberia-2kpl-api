@@ -1,11 +1,10 @@
 from datetime import date
-from typing import Any
 
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm.relationships import _RelationshipDeclared
+from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+from .person import PersonDTO
 
 class RepatriationDTO(BaseDTO):
     __tablename__: str = "repatriations"
@@ -24,4 +23,8 @@ class RepatriationDTO(BaseDTO):
     # Nearest large city to place of return to Poland
     nearest_large_city: Column[str] = Column(String, nullable=True)
 
-    person: _RelationshipDeclared[Any] = relationship("PersonDTO", back_populates="repatriations")
+    person: Mapped["PersonDTO"] = relationship(
+        "PersonDTO",
+        back_populates="repatriations",
+        uselist=False
+        )

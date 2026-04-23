@@ -1,11 +1,10 @@
 from datetime import date
-from typing import Any
 
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm.relationships import _RelationshipDeclared
+from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+from .person import PersonDTO
 
 
 class MilitaryExperienceDTO(BaseDTO):
@@ -24,10 +23,16 @@ class MilitaryExperienceDTO(BaseDTO):
     # Other information about participation in WWII battles or campaigns (If applicable)
     other_battles: Column[str] = Column(String, nullable=True)
 
-    military_services: _RelationshipDeclared[Any] = relationship(
-        "MilitaryServiceDTO", back_populates="military_experience")
-    person: _RelationshipDeclared[Any] = relationship(
-        "PersonDTO", back_populates="military_experiences")
+    military_services: Mapped[list["MilitaryServiceDTO"]] = relationship(
+        "MilitaryServiceDTO",
+        back_populates="military_experience",
+        uselist=True
+        )
+    person: Mapped["PersonDTO"] = relationship(
+        "PersonDTO",
+        back_populates="military_experiences",
+        uselist=False
+        )
 
 
 class MilitaryServiceDTO(BaseDTO):
@@ -48,5 +53,8 @@ class MilitaryServiceDTO(BaseDTO):
     # End date of military service (if known)
     to_when_date: Column[date] = Column(Date, nullable=True)
     
-    military_experience: _RelationshipDeclared[Any] = relationship(
-        "MilitaryExperienceDTO", back_populates="military_services")
+    military_experience: Mapped["MilitaryExperienceDTO"] = relationship(
+        "MilitaryExperienceDTO",
+        back_populates="military_services",
+        uselist=False
+        )

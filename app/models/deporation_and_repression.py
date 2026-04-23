@@ -1,11 +1,10 @@
 from datetime import date
-from typing import Any
 
 from sqlalchemy import Column, Integer, String, Date, Text, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm.relationships import _RelationshipDeclared
+from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+from .person import PersonDTO
 
 
 class DeportationAndRepressionDTO(BaseDTO):
@@ -18,10 +17,16 @@ class DeportationAndRepressionDTO(BaseDTO):
     # Other information about deportation or repression
     other_information: Column[str] = Column(Text)
 
-    places: _RelationshipDeclared[Any] = relationship(
-        "PlacesDTO", back_populates="deportations_and_repressions")
-    person: _RelationshipDeclared[Any] = relationship(
-        "PersonDTO", back_populates="deportations_and_repressions")
+    places:Mapped[list["PlacesDTO"]]  = relationship(
+        "PlacesDTO",
+        back_populates="deportations_and_repressions",
+        uselist=True
+        )
+    person: Mapped["PersonDTO"] = relationship(
+        "PersonDTO",
+        back_populates="deportations_and_repressions",
+        uselist=False
+        )
 
 
 class PlacesDTO(BaseDTO):
@@ -41,7 +46,8 @@ class PlacesDTO(BaseDTO):
     # City or town of deportation or repression
     city: Column[str] = Column(String, nullable=True)
     
-    deportation_and_repression: _RelationshipDeclared[Any] = relationship(
-        "DeportationAndRepressionDTO", 
-        back_populates="places"
+    deportations_and_repressions: Mapped["DeportationAndRepressionDTO"] = relationship(
+        "DeportationAndRepressionDTO",
+        back_populates="places",
+        uselist=False
     )

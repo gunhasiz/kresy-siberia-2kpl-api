@@ -1,11 +1,8 @@
-from typing import Any
-
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm.relationships import _RelationshipDeclared
+from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
-
+from .person import PersonDTO
 
 class OtherMilitaryExperienceDTO(BaseDTO):
     __tablename__: str = "other_military_experiences"
@@ -27,5 +24,8 @@ class OtherMilitaryExperienceDTO(BaseDTO):
     # Any additional free‑text information not covered by the other fields.
     other_information: Column[str] = Column(String, nullable=True)
 
-    person: _RelationshipDeclared[Any] = relationship(
-        "PersonDTO", back_populates="other_military_experiences")
+    person: Mapped["PersonDTO"] = relationship(
+        "PersonDTO",
+        back_populates="other_military_experiences",
+        uselist=False
+        )

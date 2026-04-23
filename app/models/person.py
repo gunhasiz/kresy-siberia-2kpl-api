@@ -1,17 +1,24 @@
-from typing import Any
 from datetime import date
 
 from sqlalchemy import Boolean, Column, Date, Integer, String
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm.relationships import _RelationshipDeclared
+from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+from .personal_situation_outbreak import PersonalSituationOutbreakOfWWIIDTO
+from .deporation_and_repression import DeportationAndRepressionDTO
+from .repatriation import RepatriationDTO
+from .occupation_period import OccupationPeriodDTO
+from .military_experience import MilitaryExperienceDTO
+from .other_military_experience import OtherMilitaryExperienceDTO
+from .sources import SourcesDTO
+from .related_galleries import RelatedGalleriesDTO
+
 
 class PersonDTO(BaseDTO):
     __tablename__ = "persons"
-    
+
     id: Column[int] = Column(Integer, primary_key=True)
-    
+
     # Entry ID
     external_entry_id: Column[int] = Column(Integer, unique=True, index=True)
     # Name
@@ -49,42 +56,35 @@ class PersonDTO(BaseDTO):
     # Description
     description: Column[str] = Column(String, nullable=True)
 
-    personal_situation_outbreak: _RelationshipDeclared[Any] = relationship(
-        "PersonalSituationOutbreak1939",
+    personal_situation_outbreak: Mapped["PersonalSituationOutbreakOfWWIIDTO"] = relationship(
+        "PersonalSituationOutbreakOfWWIIDTO",
         back_populates="person",
-        cascade="all, delete-orphan")
-    deportations_and_repressions: _RelationshipDeclared[Any] = relationship(
-        "DeportationAndRepressionDTO", 
-        back_populates="person", 
-        cascade="all, delete-orphan"
-    )
-    repatriations: _RelationshipDeclared[Any] = relationship(
-        "RepatriationDTO", 
-        back_populates="person", 
-        cascade="all, delete-orphan"
-    )
-    occupation_periods: _RelationshipDeclared[Any] = relationship(
-        "OccupationPeriodDTO", 
-        back_populates="person", 
-        cascade="all, delete-orphan"
-    )
-    military_experiences: _RelationshipDeclared[Any] = relationship(
-        "MilitaryExperienceDTO", 
-        back_populates="person", 
-        cascade="all, delete-orphan"
-    )
-    other_military_experiences: _RelationshipDeclared[Any] = relationship(
-        "OtherMilitaryExperienceDTO", 
-        back_populates="person", 
-        cascade="all, delete-orphan"
-    )
-    sources: _RelationshipDeclared[Any] = relationship(
-        "SourcesDTO", 
-        back_populates="person", 
-        cascade="all, delete-orphan"
-    )
-    related_galleries: _RelationshipDeclared[Any] = relationship(
-        "RelatedGalleriesDTO", 
-        back_populates="person", 
-        cascade="all, delete-orphan"
-    )
+        uselist=False)
+    deportations_and_repressions: Mapped["DeportationAndRepressionDTO"] = relationship(
+        "DeportationAndRepressionDTO",
+        back_populates="person",
+        uselist=False)
+    repatriations: Mapped["RepatriationDTO"] = relationship(
+        "RepatriationDTO",
+        back_populates="person",
+        uselist=False)
+    occupation_periods: Mapped["OccupationPeriodDTO"] = relationship(
+        "OccupationPeriodDTO",
+        back_populates="person",
+        uselist=False)
+    military_experiences: Mapped["MilitaryExperienceDTO"] = relationship(
+        "MilitaryExperienceDTO",
+        back_populates="person",
+        uselist=False)
+    other_military_experiences: Mapped["OtherMilitaryExperienceDTO"] = relationship(
+        "OtherMilitaryExperienceDTO",
+        back_populates="person",
+        uselist=False)
+    sources: Mapped["SourcesDTO"] = relationship(
+        "SourcesDTO",
+        back_populates="person",
+        uselist=False)
+    related_galleries: Mapped["RelatedGalleriesDTO"] = relationship(
+        "RelatedGalleriesDTO",
+        back_populates="person",
+        uselist=False)

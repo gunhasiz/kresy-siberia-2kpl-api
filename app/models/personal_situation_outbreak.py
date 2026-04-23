@@ -1,17 +1,16 @@
-from typing import Any
-
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm.relationships import _RelationshipDeclared
+from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+from .person import PersonDTO
 
 class PersonalSituationOutbreakOfWWIIDTO(BaseDTO):
-    __tablename__: str = "personal_situation_outbreaks_of_wwii"
+    __tablename__: str = "personal_situation_outbreak"
 
     id: Column[int] = Column(Integer, primary_key=True)
-    person_id: Column[int] = Column(Integer, ForeignKey("persons.id"), nullable=False)
-    
+    person_id: Column[int] = Column(
+        Integer, ForeignKey("persons.id"), nullable=False)
+
     # Residence at the outbreak of WWII
     residence: Column[str] = Column(String, nullable=True)
     # Kresy Inhabitant Status:
@@ -29,4 +28,8 @@ class PersonalSituationOutbreakOfWWIIDTO(BaseDTO):
     # Military Rank at the outbreak of WWII
     military_rank: Column[str] = Column(String, nullable=True)
 
-    person: _RelationshipDeclared[Any] = relationship("PersonDTO", back_populates="initial_status")
+    person: Mapped["PersonDTO"] = relationship(
+        "PersonDTO",
+        back_populates="personal_situation_outbreak",
+        uselist=False
+        )
