@@ -14,13 +14,11 @@ class DeportationAndRepressionDTO(BaseDTO):
     id: Column[int] = Column(Integer, primary_key=True)
     person_id: Column[int] = Column(
         Integer, ForeignKey("persons.id"), nullable=False)
-    place_id: Column[int] = Column(
-        Integer, ForeignKey("places.id"), nullable=True)
 
     # Other information about deportation or repression
     other_information: Column[str] = Column(Text)
 
-    place: _RelationshipDeclared[Any] = relationship(
+    places: _RelationshipDeclared[Any] = relationship(
         "PlacesDTO", back_populates="deportations_and_repressions")
     person: _RelationshipDeclared[Any] = relationship(
         "PersonDTO", back_populates="deportations_and_repressions")
@@ -30,6 +28,7 @@ class PlacesDTO(BaseDTO):
     __tablename__: str = "places"
 
     id: Column[int] = Column(Integer, primary_key=True)
+    deportation_id: Column[int] = Column(Integer, ForeignKey("deportations_and_repressions.id"), nullable=False)
 
     # When deportation or repression took place
     from_when_date: Column[date] = Column(Date, nullable=True)
@@ -41,3 +40,8 @@ class PlacesDTO(BaseDTO):
     oblast: Column[str] = Column(String, nullable=True)
     # City or town of deportation or repression
     city: Column[str] = Column(String, nullable=True)
+    
+    deportation_and_repression: _RelationshipDeclared[Any] = relationship(
+        "DeportationAndRepressionDTO", 
+        back_populates="places"
+    )

@@ -47,3 +47,6 @@ class MilitaryServiceDTO(BaseDTO):
     from_when_date: Column[date] = Column(Date, nullable=True)
     # End date of military service (if known)
     to_when_date: Column[date] = Column(Date, nullable=True)
+    
+    military_experience: _RelationshipDeclared[Any] = relationship(
+        "MilitaryExperienceDTO", back_populates="military_services")
