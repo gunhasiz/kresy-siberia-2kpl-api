@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.v1.endpoints import status
+
 app = FastAPI(
     title="Recon API",
     description="API for managing Kresy-Siberia reconnaissance data",
@@ -14,6 +16,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(status.router, prefix="/status", tags=["status"])
 
 @app.get("/", tags=["health"])
 def read_root() -> dict[str, str]:

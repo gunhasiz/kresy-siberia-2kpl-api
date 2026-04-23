@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "aiosqlite>=0.22.1",
     "alembic>=1.18.4",
     "fastapi[standard]>=0.136.0",
     "poethepoet>=0.44.0",
@@ -13,6 +14,6 @@ dependencies = [
 ]
 
 [tool.poe.tasks]
-dev = "fastapi dev app/main.py"
+dev = "fastapi dev main.py"
 migration = "alembic revision --autogenerate -m"
 upgrade = "alembic upgrade head"
