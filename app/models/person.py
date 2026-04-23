@@ -13,7 +13,6 @@ from .other_military_experience import OtherMilitaryExperienceDTO
 from .sources import SourcesDTO
 from .related_galleries import RelatedGalleriesDTO
 
-
 class PersonDTO(BaseDTO):
     __tablename__ = "persons"
 

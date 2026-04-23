@@ -2,7 +2,6 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
-from .person import PersonDTO
 
 class RelatedGalleriesDTO(BaseDTO):
     __tablename__: str = "related_galleries"

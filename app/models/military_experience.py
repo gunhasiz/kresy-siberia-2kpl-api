@@ -4,8 +4,6 @@ from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
-from .person import PersonDTO
-
 
 class MilitaryExperienceDTO(BaseDTO):
     __tablename__: str = "military_experiences"
