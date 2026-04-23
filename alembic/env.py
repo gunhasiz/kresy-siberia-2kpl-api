@@ -31,7 +31,7 @@ target_metadata = BaseDTO.metadata
 # ... etc.
 
 def get_url():
-    return os.getenv("DB_URL")
+    return os.getenv("DATABASE_URL")
 
 
 def run_migrations_offline() -> None:
