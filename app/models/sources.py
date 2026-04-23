@@ -1,7 +1,13 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+
+if TYPE_CHECKING:
+    from .person import PersonDTO
 
 class SourcesDTO(BaseDTO):
     __tablename__: str = "sources"

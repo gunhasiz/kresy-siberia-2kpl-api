@@ -1,9 +1,14 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
 from datetime import date
 
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship, Mapped
 
 from .base import BaseDTO
+
+if TYPE_CHECKING:
+    from .person import PersonDTO
 
 class MilitaryExperienceDTO(BaseDTO):
     __tablename__: str = "military_experiences"
