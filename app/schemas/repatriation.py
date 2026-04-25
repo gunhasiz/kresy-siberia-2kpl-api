@@ -1,0 +1,11 @@
+# app/schemas/repatriation.py
+
+from pydantic import BaseModel
+from typing import Optional
+
+class RepatriationCreate(BaseModel):
+    return_date: Optional[str] = None
+    province: Optional[str] = None
+    county: Optional[str] = None
+    locality: Optional[str] = None
+    nearest_large_city: Optional[str] = None
