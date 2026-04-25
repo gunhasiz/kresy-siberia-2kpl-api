@@ -79,11 +79,11 @@ class PersonDTO(BaseDTO):
         "OtherMilitaryExperienceDTO",
         back_populates="person",
         uselist=False)
-    sources: Mapped["SourcesDTO"] = relationship(
+    sources: Mapped[list["SourcesDTO"]] = relationship(
         "SourcesDTO",
         back_populates="person",
         uselist=False)
-    related_galleries: Mapped["RelatedGalleriesDTO"] = relationship(
+    related_galleries: Mapped[list["RelatedGalleriesDTO"]] = relationship(
         "RelatedGalleriesDTO",
         back_populates="person",
         uselist=False)
