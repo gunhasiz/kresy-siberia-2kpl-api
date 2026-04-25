@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.endpoints import status
+from app.api.v1.endpoints import records
 
 app = FastAPI(
     title="Recon API",
@@ -18,6 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(status.router, prefix="/status", tags=["status"])
+app.include_router(records.router , prefix="/records", tags=["records"])
 
 @app.get("/", tags=["health"])
 def read_root() -> dict[str, str]:
