@@ -17,3 +17,5 @@ dependencies = [
 dev = "fastapi dev main.py"
 migration = "alembic revision --autogenerate -m"
 upgrade = "alembic upgrade head"
+downgrade = "alembic downgrade"
+drop = "alembic downgrade base"
