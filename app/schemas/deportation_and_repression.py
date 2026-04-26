@@ -6,7 +6,7 @@ from datetime import date
 
 class DeportationAndRepressionCreate(BaseModel):
     other_information: Optional[str] = None
-    place: List[Place] = []
+    places: List[Place] = []
     
 class Place(BaseModel):
     from_when_date: Optional[date] = None
