@@ -14,6 +14,7 @@ dependencies = [
 ]
 
 [tool.poe.tasks]
+run = "fastapi run"
 dev = "fastapi dev main.py"
 migration = "alembic revision --autogenerate -m"
 upgrade = "alembic upgrade head"
