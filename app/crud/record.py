@@ -1,5 +1,8 @@
 # app/crud/record.py
 
+from typing import Tuple, Optional
+
+from sqlalchemy import Result, Select, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.person import PersonDTO
@@ -14,6 +17,13 @@ from app.models.related_galleries import RelatedGalleriesDTO
 from app.schemas.record import RecordCreate
 
 async def create_full_record(db: AsyncSession, obj_in: RecordCreate) -> PersonDTO:
+    query: Select[Tuple[PersonDTO]] = select(PersonDTO).where(PersonDTO.external_entry_id == obj_in.person.external_entry_id)
+    result: Result[Tuple[PersonDTO]] = await db.execute(query)
+    existing_person: Optional[PersonDTO] = result.scalars().first()
+
+    if existing_person:
+        raise ValueError(f"Record with external_entry_id {obj_in.person.external_entry_id} already exists.")
+    
     db_person = PersonDTO(**obj_in.person.model_dump())
 
     if obj_in.personal_situation_outbreak:
