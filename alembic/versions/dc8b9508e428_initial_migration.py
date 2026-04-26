@@ -1,8 +1,8 @@
 """initial_migration
 
-Revision ID: 310a33eb7bc2
+Revision ID: dc8b9508e428
 Revises: 
-Create Date: 2026-04-23 23:46:06.542821
+Create Date: 2026-04-26 12:50:10.677904
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '310a33eb7bc2'
+revision: str = 'dc8b9508e428'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -28,10 +28,10 @@ def upgrade() -> None:
     sa.Column('maiden_name', sa.String(), nullable=True),
     sa.Column('nickname', sa.String(), nullable=True),
     sa.Column('gender', sa.String(), nullable=True),
-    sa.Column('birth_date', sa.Date(), nullable=True),
+    sa.Column('birth_date', sa.String(), nullable=True),
     sa.Column('birth_place', sa.String(), nullable=True),
-    sa.Column('died_in_ww2', sa.Boolean(), nullable=True),
-    sa.Column('death_date', sa.Date(), nullable=True),
+    sa.Column('died_in_ww2', sa.String(), nullable=True),
+    sa.Column('death_date', sa.String(), nullable=True),
     sa.Column('death_place', sa.String(), nullable=True),
     sa.Column('death_cause', sa.String(), nullable=True),
     sa.Column('father_name', sa.String(), nullable=True),
@@ -119,7 +119,7 @@ def upgrade() -> None:
     op.create_table('repatriations',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('person_id', sa.Integer(), nullable=False),
-    sa.Column('return_date', sa.Date(), nullable=True),
+    sa.Column('return_date', sa.String(), nullable=True),
     sa.Column('province', sa.String(), nullable=True),
     sa.Column('county', sa.String(), nullable=True),
     sa.Column('locality', sa.String(), nullable=True),
@@ -139,11 +139,17 @@ def upgrade() -> None:
     op.create_table('military_services',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('military_experience_id', sa.Integer(), nullable=False),
-    sa.Column('service_branch', sa.String(), nullable=True),
+    sa.Column('served_in', sa.String(), nullable=True),
     sa.Column('unit_name', sa.String(), nullable=True),
     sa.Column('rank', sa.String(), nullable=True),
     sa.Column('from_when_date', sa.Date(), nullable=True),
     sa.Column('to_when_date', sa.Date(), nullable=True),
+    sa.Column('from_yyyy', sa.String(), nullable=True),
+    sa.Column('mm_first', sa.String(), nullable=True),
+    sa.Column('dd_first', sa.String(), nullable=True),
+    sa.Column('to_yyyy', sa.String(), nullable=True),
+    sa.Column('mm_last', sa.String(), nullable=True),
+    sa.Column('dd_last', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['military_experience_id'], ['military_experiences.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -152,6 +158,12 @@ def upgrade() -> None:
     sa.Column('deportation_id', sa.Integer(), nullable=False),
     sa.Column('from_when_date', sa.Date(), nullable=True),
     sa.Column('to_when_date', sa.Date(), nullable=True),
+    sa.Column('from_yyyy', sa.String(), nullable=True),
+    sa.Column('mm_first', sa.String(), nullable=True),
+    sa.Column('dd_first', sa.String(), nullable=True),
+    sa.Column('to_yyyy', sa.String(), nullable=True),
+    sa.Column('mm_last', sa.String(), nullable=True),
+    sa.Column('dd_last', sa.String(), nullable=True),
     sa.Column('deporting_authority', sa.String(), nullable=True),
     sa.Column('oblast', sa.String(), nullable=True),
     sa.Column('city', sa.String(), nullable=True),
