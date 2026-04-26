@@ -46,7 +46,7 @@ class MilitaryServiceDTO(BaseDTO):
         Integer, ForeignKey("military_experiences.id"), nullable=False)
 
     # Service branch (e.g., Army, Navy, Air Force, Other)
-    service_branch: Column[str] = Column(String, nullable=True)
+    served_in: Column[str] = Column(String, nullable=True)
     # Military unit name or designation
     unit_name: Column[str] = Column(String, nullable=True)
     # Rank or position held during military service
@@ -55,6 +55,12 @@ class MilitaryServiceDTO(BaseDTO):
     from_when_date: Column[date] = Column(Date, nullable=True)
     # End date of military service (if known)
     to_when_date: Column[date] = Column(Date, nullable=True)
+    from_yyyy: Column[str] = Column(String, nullable=True)
+    mm_first: Column[str] = Column(String, nullable=True)
+    dd_first: Column[str] = Column(String, nullable=True)
+    to_yyyy: Column[str] = Column(String, nullable=True)
+    mm_last: Column[str] = Column(String, nullable=True)
+    dd_last: Column[str] = Column(String, nullable=True)
     
     military_experience: Mapped["MilitaryExperienceDTO"] = relationship(
         "MilitaryExperienceDTO",

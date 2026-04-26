@@ -37,6 +37,12 @@ class PlacesDTO(BaseDTO):
     from_when_date: Column[date] = Column(Date, nullable=True)
     # When deportation or repression ended (if applicable)
     to_when_date: Column[date] = Column(Date, nullable=True)
+    from_yyyy: Column[str] = Column(String, nullable=True)
+    mm_first: Column[str] = Column(String, nullable=True)
+    dd_first: Column[str] = Column(String, nullable=True)
+    to_yyyy: Column[str] = Column(String, nullable=True)
+    mm_last: Column[str] = Column(String, nullable=True)
+    dd_last: Column[str] = Column(String, nullable=True)
     # Authority or institution that ordered or carried out the deportation or repression
     deporting_authority: Column[str] = Column(String, nullable=True)
     # Location of deportation or repression

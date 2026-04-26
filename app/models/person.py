@@ -29,13 +29,13 @@ class PersonDTO(BaseDTO):
     # Gender
     gender: Column[str] = Column(String, nullable=True)
     # Date of birth
-    birth_date: Column[date] = Column(Date, nullable=True)
+    birth_date: Column[str] = Column(String, nullable=True)
     # Place of birth
     birth_place: Column[str] = Column(String, nullable=True)
     # Did this person die during World War ll?
-    died_in_ww2: Column[bool] = Column(Boolean, default=False)
+    died_in_ww2: Column[str] = Column(String, default=False)
     # Date of death
-    death_date: Column[date] = Column(Date, nullable=True)
+    death_date: Column[str] = Column(String, nullable=True)
     # Place of death
     death_place: Column[str] = Column(String, nullable=True)
     # Cause of death
@@ -81,9 +81,7 @@ class PersonDTO(BaseDTO):
         uselist=False)
     sources: Mapped[list["SourcesDTO"]] = relationship(
         "SourcesDTO",
-        back_populates="person",
-        uselist=False)
+        back_populates="person")
     related_galleries: Mapped[list["RelatedGalleriesDTO"]] = relationship(
         "RelatedGalleriesDTO",
-        back_populates="person",
-        uselist=False)
+        back_populates="person")

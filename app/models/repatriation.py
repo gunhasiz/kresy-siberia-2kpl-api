@@ -12,7 +12,7 @@ class RepatriationDTO(BaseDTO):
     person_id: Column[int] = Column(Integer, ForeignKey("persons.id"), nullable=False)
 
     # Date of return to Poland
-    return_date: Column[date] = Column(Date, nullable=True)
+    return_date: Column[str] = Column(String, nullable=True)
     # Place of return to Poland
     province: Column[str] = Column(String, nullable=True)
     # District of return to Poland
